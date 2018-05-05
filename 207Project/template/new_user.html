@@ -1,0 +1,18 @@
+<html>
+<head>
+<title> Welcome to Hospital Website </title>
+</head>
+
+<body>
+	<h1> Thank you for choosing our hospital!</h1>
+   <form action = "http://127.0.0.1:5000/insert_patient_data" method ="POST">
+   <p> Enter the healthId you want: <input type = "text", name = "id_of_user" placeholder="a456"></p>
+   <p> Your Name: <input type = "text", name = "name_of_user" autocomplete = "off" required placeholder="Elon musk"></p>
+   <p> Your email id: <input type = "text", name = "email_of_user" autocomplete = "off" required placeholder="elon.musk@tesla.com"></p>
+   <p> Your SSN: <input type = "text", name = "ssn_of_user" autocomplete = "off" required placeholder="12345678"></p>
+   <p> Enter the password: <input type = "password", name = "psw_of_user" autocomplete = "off" required placeholder="secretive"></p>
+   <!-- <p> DOB <input type="date" name="date_of_birth"></p> -->
+   <p> <input type = "submit", value = "submit" /></p>
+  </form>
+</body>
+</html>

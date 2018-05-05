@@ -1,0 +1,18 @@
+<!-- Change code to accomodate a list of names! -->
+<!doctype html>
+<html>
+   <body>
+   <h3>Here are your customers!</h3>
+      <table border = 1>
+         {% for key in result %}
+          
+            <tr>
+               <!-- <th> {{ key }} </th> -->
+               <td> {{ key[0] }} </td>
+            </tr>
+            
+         {% endfor %}
+      </table>
+      
+   </body>
+</html>

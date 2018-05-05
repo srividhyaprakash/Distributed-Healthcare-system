@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<body>
+	<h3>Hello {{ result[1] }}</h3>
+	<p> Please select any of the options below </p>
+	<br>
+	<br>
+	<form action="http://127.0.0.1:5000/update_patient_info" method="POST">
+		<button type="submit">Update my information</button>
+	</form>
+	<br>
+	<br>
+	<form action="http://127.0.0.1:5000/book_appointment" method="POST">
+		<button type="submit">Book Appointment</button>
+	</form>
+	<br>
+	<br>
+	<form action="http://127.0.0.1:5000/cancel_appointment" method="POST">
+		<button type="submit">Cancel Appointment</button>
+	</form>
+	<br>
+	<br>
+	<form action="http://127.0.0.1:5000/scan_report" method="POST">
+		<button type="submit">Get Scan report</button>
+	</form>
+
+</body>
+</html>

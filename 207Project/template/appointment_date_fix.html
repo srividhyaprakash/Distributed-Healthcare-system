@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Appointment</title>
+</head>
+
+<body>
+<h2>Select Appointment Date</h2>
+
+
+<form action="http://127.0.0.1:5000/book_appointment_success" method="POST">
+  Appointment:
+  <input type="date" name="appointment_date">
+  <br>
+  <br>
+  <label for="health_id">Your Health ID:</label>
+  <input type="text" name="health_id" placeholder="p1234" required>
+	<br>
+	<br>
+  <select>
+	{% for row in result %}
+		<option value="{{row[0]}}">{{ row[1] }}</option>	
+	{% endfor %}
+  </select>
+  <input type="submit">
+</form>
+
+
+</body>
+</html>

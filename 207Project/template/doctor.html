@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+   <body>
+   <h3>Hello doctor {{ name }}</h3>  
+     <p> Please select any of the options below </p>
+	<br>
+	<br>
+	<form action="http://127.0.0.1:5000/cancel_appointment" method="POST">
+		<button type="submit">Cancel Appointment</button>
+	</form>
+	<br>
+	<br>
+	<form action="http://127.0.0.1:5000/uploadFile" method="POST">
+		<button type="submit">Get Scan report</button>
+	</form>
+   </body>
+</html>
