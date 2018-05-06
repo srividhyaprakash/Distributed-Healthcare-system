@@ -23,26 +23,22 @@ def new_user():
 @app.route('/existing_user',methods = ['POST', 'GET'])
 def existing_user():
 	if (request.method == 'POST'):
-		#patient_id=request.form['uname']
 		return render_template("input.html")
 
 @app.route('/success',methods = ['POST', 'GET'])
 def success():
 	return redirect(url_for('main_page'))
 
+@app.route('/book_appointment',methods = ['POST', 'GET'])
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
 	if (request.method == 'POST'):
 		try:
 			conn = sql.connect('db_1.0.db')
-			#print("Opened database successfully")
+			print("Opened database successfully")
 			username = request.form['uname']
-			#username=patient_id
-			global patient_id
-			patient_id = username
 			print("Username is: %s" % username)
 			password = request.form['psw']
-			print("patient_id inside the result function is: %s" % patient_id)
 			print("password is: %s" % password)
 			dict_login = {'username':username, 'password' : password}
 			print("created the dictionary")
@@ -73,58 +69,6 @@ def result():
 		finally:
 			print("closing database connection")
 			conn.close()
-
-@app.route('/book_appointment',methods = ['POST', 'GET'])
-def book_appointment():
-	if (request.method == 'POST'):
-		try:
-			conn = sql.connect('db_1.0.db')
-			cur = conn.cursor()
-			cur.execute("select * from doctor")
-			rows = cur.fetchall()
-			print("patient_id:%s" % patient_id)
-		finally:
-			return render_template("appointment_date_fix.html", result = rows)
-
-@app.route('/book_appointment_success',methods = ['POST', 'GET'])
-def book_appointment_success():
-	# if (request.method == 'POST'):
-	print("patient_id is: %s" % patient_id)
-	return render_template("book_appointment_success.html")
-
-@app.route('/view_appointment',methods = ['POST', 'GET'])
-def view_appointment():
-	# if (request.method == 'POST'):
-	print(patient_id)
-	return render_template("view_appointment.html")
-
-@app.route('/cancel_appointment',methods = ['POST', 'GET'])
-def cancel_appointment():
-	# if (request.method == 'POST'):
-	return render_template("cancel_appointment.html")
-
-
-@app.route('/cancel_appointment_success',methods = ['POST', 'GET'])
-def cancel_appointment_success():
-	if (request.method == 'POST'):
-		try:
-			conn = sql.connect('db_1.0.db')
-			cur = conn.cursor()
-			p_id = request.form["health_id"]
-			#print("got p_id", p_id)
-			# cur.execute("select * from login")
-			cur.execute("UPDATE patient SET p_appointment_date = ? where p_id = ?",('NULL', p_id))
-			#print("executed the command")
-			conn.commit()
-			msg = "Ok, your appointment has been cancelled. Please login to book another appointment."
-		except:
-			msg = "Sorry, your appointment could not be cancelled. Please login and try again."
-		finally:
-			#print("closing database connection")
-			conn.close()
-			return render_template("scan_report_success.html", msg = msg)
-
-
 
 @app.route('/insert_patient_data',methods = ['POST', 'GET'])
 def insert_patient_data():
@@ -190,7 +134,6 @@ def check_insurance_result():
 def scan_report():
 	if(request.method == 'POST'):
 		print("Python code to send an email should go here")
-		print("patient_id inside the scan report function is =%s" % patient_id)
 		fromaddr = "srividhyaprakash029@gmail.com"
 		toaddr = "srividhyaprakash029@gmail.com"
 		filename = "d4ecb063-7ece-40b5-b92b-a3a1f04ada34-original.jpeg"
@@ -230,6 +173,57 @@ def scan_report():
 
 		finally:
 			return render_template("scan_report_success.html", msg = msg_send)
+
+@app.route('/update_patient_info', methods = ['GET', 'POST'])
+def update_patient_info():
+	return render_template('update_patient_info_page.html')
+
+@app.route('/update_patient_email',methods = ['POST', 'GET'])
+def update_patient_email():	
+	return render_template('update_patient_email.html')
+
+
+@app.route('/update_patient_email_success',methods = ['POST', 'GET'])
+def update_patient_email_success():	
+	if request.method == 'POST':
+		try:
+			conn = sql.connect('db_1.0.db')
+			print("Opened database successfully")
+			p_id = request.form["id_of_user"]
+			email = request.form["email_of_user"]
+			cur = conn.cursor()
+			print("created the cursor")
+			cur.execute("UPDATE patient SET p_email = ? where p_id = ?",(email,p_id))
+			conn.commit()
+			msg = "Your Email is successfully updated"
+		except:
+			msg = "Error in updating your Email, login and try again"
+		finally:
+			return render_template("scan_report_success.html", msg = msg)
+
+
+@app.route('/update_patient_ssn',methods = ['POST', 'GET'])
+def update_patient_ssn():	
+	return render_template('update_patient_ssn.html')
+
+
+@app.route('/update_patient_ssn_success',methods = ['POST', 'GET'])
+def update_patient_ssn_success():	
+	if request.method == 'POST':
+		try:
+			conn = sql.connect('db_1.0.db')
+			print("Opened database successfully")
+			p_id = request.form["id_of_user"]
+			ssn = request.form["ssn_of_user"]
+			cur = conn.cursor()
+			print("created the cursor")
+			cur.execute("UPDATE patient SET p_ssn = ? where p_id = ?",(ssn,p_id))
+			conn.commit()
+			msg = "Your SSN is successfully updated"
+		except:
+			msg = "Error in updating SSN, login and try again"
+		finally:
+			return render_template("scan_report_success.html", msg = msg)			
 
 @app.route('/uploadFile', methods=['GET', 'POST'])
 def upload_file():
